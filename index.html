@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Positive Thinkers - Terapia Positiva</title>
+    <title>Positive Thinkers</title>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <style>
         body {
             font-family: 'Raleway', sans-serif;
@@ -64,7 +66,7 @@
         }
         #calendario {
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
             padding: 20px;
             border: 3px solid #FF69B4;
             border-radius: 15px;
@@ -72,6 +74,11 @@
             font-size: 1.1em;
             background: white;
             box-shadow: 0 5px 20px rgba(255,105,180,0.2);
+            cursor: pointer;
+        }
+        #calendario:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255,105,180,0.5);
         }
         button {
             padding: 15px 35px;
@@ -84,6 +91,8 @@
             background: linear-gradient(135deg, #FF69B4, #FF1493);
             color: white;
             box-shadow: 0 4px 15px rgba(255,105,180,0.4);
+            text-decoration: none;
+            display: inline-block;
         }
         button:hover {
             transform: translateY(-3px);
@@ -113,39 +122,73 @@
     </header>
 
     <section>
-        <h2>Comienza Tu Proceso de Cambio</h2>
-        <p class="descripcion">Comienza a pensar más positivo desde hoy. Selecciona un día para empezar esta aventura de mejora y bienestar interno.</p>
+        <h2>Agenda tu Primera Sesión</h2>
+        <p class="descripcion">Comienza a pensar más positivo desde hoy. Haz clic en el calendario para seleccionar una fecha y confirmar por WhatsApp.</p>
         
         <div class="calendario-container">
-            <input type="date" id="calendario" min="2024-01-15">
-            <button onclick="agendar()">Confirmar</button>
+            <input type="text" id="calendario" placeholder="Selecciona una fecha...">
+            <button id="btn-confirmar" onclick="confirmarYWhatsapp()">
+                <span> Confirmar 📱</span>
+            </button>
             <div id="mensaje"></div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2024 Positive Thinkers. Todos los derechos reservados. | Comienza tu cambio hoy con positividad ✨</p>
+        <p>&copy; 2026 Positive Thinkers. Todos los derechos reservados. | Comienza tu cambio hoy con mentalidad positiva ✨</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
-        // Fecha mínima: hoy + 1 semana
-        const hoy = new Date();
-        hoy.setDate(hoy.getDate() + 7);
-        const fechaMin = hoy.toISOString().split('T')[0];
-        document.getElementById('calendario').min = fechaMin;
+        let fechaSeleccionada = '';
 
-        function agendarSesion() {
-            const fecha = document.getElementById('calendario').value;
-            const mensaje = document.getElementById('mensaje');
-            
-            if (!fecha) {
-                mensaje.innerHTML = 'Por favor, selecciona una fecha.';
-                mensaje.style.color = '#FF69B4';
-            } else {
-                const fechaSeleccionada = new Date(fecha).toLocaleDateString('es-ES');
-                mensaje.innerHTML = `¡Perfecto! Tu primera sesión está agendada para el <strong>${fechaSeleccionada}</strong>.<br>Te contactaremos pronto. ¡Comienza a pensar positivo desde hoy! 🌟`;
-                mensaje.style.color = '#FF1493';
+        // Calendario Flatpickr
+        flatpickr("#calendario", {
+            dateFormat: "d/m/Y",
+            minDate: "today",
+            defaultDate: new Date().fp_incr(7),
+            locale: {
+                firstDayOfWeek: 1,
+                weekdays: {
+                    shorthand: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+                    longhand: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
+                },
+                months: {
+                    shorthand: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+                    longhand: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
+                }
+            },
+            theme: "light",
+            onChange: function(selectedDates, dateStr, instance) {
+                fechaSeleccionada = dateStr;
+                document.getElementById('mensaje').innerHTML = `Fecha seleccionada: <strong>${dateStr}</strong><br>¡Listo para confirmar! 📲`;
+                document.getElementById('mensaje').style.color = '#FF1493';
+                document.getElementById('btn-confirmar').style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+            },
+            onReady: function(selectedDates, dateStr, instance) {
+                document.getElementById('mensaje').innerHTML = 'Selecciona una fecha haciendo clic en el calendario.';
             }
+        });
+
+        function confirmarYWhatsapp() {
+            if (!fechaSeleccionada) {
+                alert('Por favor, selecciona una fecha primero 😊');
+                return;
+            }
+            
+            const mensaje = `¡Hola! Quiero agendar mi primera sesión de Positive Thinkers para el ${fechaSeleccionada}. ¡Comienzo a pensar positivo desde hoy! ✨`;
+            const whatsappUrl = `https://wa.me/541122523570?text=${encodeURIComponent(mensaje)}`;
+            
+            // Cambiar botón a WhatsApp
+            const btn = document.getElementById('btn-confirmar');
+            btn.innerHTML = '<span class="whatsapp-icon">📱</span>Ir a WhatsApp';
+            btn.href = whatsappUrl;
+            btn.target = '_blank';
+            btn.style.background = 'linear-gradient(135deg, #25D366, #128C7E)';
+            
+            // Mensaje final
+            document.getElementById('mensaje').innerHTML = `¡Sesión confirmada para <strong>${fechaSeleccionada}</strong>!<br>Haz clic en el botón para finalizar en WhatsApp 📲`;
+            document.getElementById('mensaje').style.color = '#4CAF50';
         }
     </script>
 </body>
