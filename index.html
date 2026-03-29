@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Positive Thinkers</title>
+    <title>Positive Thinkers - Terapia Positiva</title>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -123,19 +123,19 @@
 
     <section>
         <h2>Agenda tu Primera Sesión</h2>
-        <p class="descripcion">Comienza a pensar más positivo desde hoy. Haz clic en el calendario para seleccionar una fecha y confirmar por WhatsApp.</p>
+        <p class="descripcion">Comienza a pensar más positivo desde hoy. Haz clic en el calendario para seleccionar tu fecha ideal y confirma por WhatsApp.</p>
         
         <div class="calendario-container">
             <input type="text" id="calendario" placeholder="Selecciona una fecha...">
             <button id="btn-confirmar" onclick="confirmarYWhatsapp()">
-                <span> Confirmar 📱</span>
+                <span>📱 Confirmar</span>
             </button>
             <div id="mensaje"></div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Positive Thinkers. Todos los derechos reservados. | Comienza tu cambio hoy con mentalidad positiva ✨</p>
+        <p>&copy; 2024 Positive Thinkers. Todos los derechos reservados. | Comienza tu cambio hoy con positividad ✨</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -177,7 +177,7 @@
             }
             
             const mensaje = `¡Hola! Quiero agendar mi primera sesión de Positive Thinkers para el ${fechaSeleccionada}. ¡Comienzo a pensar positivo desde hoy! ✨`;
-            const whatsappUrl = `https://wa.me/541122523570?text=${encodeURIComponent(mensaje)}`;
+            const whatsappUrl = `https://wa.me/541122523570text=${encodeURIComponent(mensaje)}`;
             
             // Cambiar botón a WhatsApp
             const btn = document.getElementById('btn-confirmar');
