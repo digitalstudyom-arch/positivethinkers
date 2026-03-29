@@ -6,6 +6,7 @@
     <title>Mente Positiva - Reserva tu Sesión</title>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_blue.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <style>
         * {
@@ -32,9 +33,10 @@
             border-radius: 25px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.4);
             text-align: center;
-            max-width: 500px;
+            max-width: 550px;
             width: 100%;
             backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.2);
         }
         
         h1 {
@@ -60,85 +62,113 @@
             font-weight: 300;
         }
         
-        #calendario {
-            width: 100%;
-            max-width: 350px;
-            padding: 20px;
+        .calendario-section {
+            position: relative;
             margin-bottom: 30px;
-            border: 3px solid rgba(255,255,255,0.3);
+        }
+        
+        #calendario-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 22px 25px;
+            margin-bottom: 10px;
+            border: 3px solid rgba(255,255,255,0.4);
             border-radius: 20px;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.15);
             color: white;
             font-family: 'Lora', serif;
-            font-size: 1.2em;
-            font-weight: 400;
+            font-size: 1.3em;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
+            text-align: center;
         }
         
-        #calendario::placeholder {
-            color: rgba(255,255,255,0.7);
+        #calendario-input::placeholder {
+            color: rgba(255,255,255,0.6);
+            font-style: italic;
         }
         
-        #calendario:focus {
+        #calendario-input:hover {
+            border-color: rgba(255,255,255,0.7);
+            box-shadow: 0 5px 25px rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        
+        #calendario-input:focus {
             outline: none;
-            border-color: rgba(255,255,255,0.6);
-            box-shadow: 0 0 20px rgba(255,255,255,0.2);
-            transform: scale(1.02);
+            border-color: white;
+            box-shadow: 0 0 30px rgba(255,255,255,0.4);
         }
         
         .btn-whatsapp {
             display: inline-block;
-            padding: 18px 45px;
+            padding: 20px 50px;
             background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
             color: white;
             text-decoration: none;
             border-radius: 50px;
-            font-size: 1.2em;
+            font-size: 1.25em;
             font-weight: 600;
-            box-shadow: 0 10px 30px rgba(37,211,102,0.4);
-            transition: all 0.3s ease;
+            box-shadow: 0 12px 35px rgba(37,211,102,0.4);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             position: relative;
             overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         .btn-whatsapp:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(37,211,102,0.5);
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(37,211,102,0.6);
         }
         
         .btn-whatsapp:active {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
         }
         
         .whatsapp-icon {
-            font-size: 1.4em;
-            margin-right: 12px;
+            font-size: 1.6em;
+            margin-right: 15px;
+            vertical-align: middle;
         }
         
         #mensaje {
-            margin-top: 25px;
-            font-size: 1.1em;
+            margin-top: 30px;
+            font-size: 1.15em;
             font-weight: 400;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: all 0.5s ease;
+            min-height: 40px;
         }
         
         #mensaje.mostrar {
             opacity: 1;
+            transform: scale(1.02);
+        }
+        
+        .calendario-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.8em;
+            opacity: 0.7;
         }
         
         footer {
             margin-top: 40px;
-            font-size: 0.9em;
+            font-size: 0.95em;
             opacity: 0.8;
             font-weight: 300;
+            font-style: italic;
         }
         
         @media (max-width: 600px) {
-            h1 { font-size: 2.2em; }
-            .container { padding: 30px 25px; margin: 10px; }
+            h1 { font-size: 2.3em; }
+            .container { padding: 35px 25px; margin: 10px; }
+            .btn-whatsapp { padding: 18px 35px; font-size: 1.1em; }
         }
     </style>
 </head>
@@ -149,10 +179,13 @@
         
         <p class="descripcion">
             Reserva tu primera sesión gratuita y comienza hoy mismo a transformar tu mentalidad con un enfoque práctico y positivo. 
-            <br><strong>¡Un clic y cambias tu vida!</strong>
+            <br><strong>¡Selecciona tu día ideal y confirma en segundos!</strong>
         </p>
         
-        <input type="text" id="calendario" placeholder="Selecciona tu día ideal...">
+        <div class="calendario-section">
+            <input type="text" id="calendario-input" placeholder="📅 Haz clic aquí para elegir tu fecha...">
+            <span class="calendario-icon">📅</span>
+        </div>
         
         <a href="#" id="btn-whatsapp" class="btn-whatsapp">
             <span class="whatsapp-icon">📱</span>Confirmar Sesión
@@ -162,26 +195,28 @@
     </div>
     
     <footer>
-        © 2024 Mente Positiva | Tu transformación comienza aquí ✨
+        © 2024 Mente Positiva | Tu transformación comienza con un clic ✨
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         let fechaSeleccionada = '';
         
-        // Calendario Flatpickr personalizado
-        const fp = flatpickr("#calendario", {
-            dateFormat: "d 'de' F 'de' Y",
+        // Calendario Flatpickr con diseño visual integrado
+        flatpickr("#calendario-input", {
+            dateFormat: "d 'de' MMMM 'de' Y",
             minDate: "today",
-            dateFormat: "d/m/Y",
-            locale: "es",
-            minDate: new Date().fp_incr(1),
-            maxDate: new Date().fp_incr(30),
-            theme: "dark",
+            maxDate: new Date().fp_incr(60),
+            locale: {
+                firstDayOfWeek: 1 // Lunes como primer día
+            },
+            theme: "material_blue",
+            altInput: true,
+            altFormat: "d/m/Y",
             onChange: function(selectedDates, dateStr, instance) {
                 fechaSeleccionada = dateStr;
                 
-                const fechaFormato = new Date(fechaSeleccionada).toLocaleDateString('es-ES', {
+                const fechaCompleta = new Date(selectedDates[0]).toLocaleDateString('es-ES', {
                     weekday: 'long',
                     year: 'numeric',
                     month: 'long',
@@ -189,27 +224,30 @@
                 });
                 
                 document.getElementById('mensaje').innerHTML = `
-                    ✅ <strong>¡Fecha perfecta seleccionada!</strong><br>
-                    ${fechaFormato}<br>
-                    <small>Haz clic en "Confirmar Sesión" para reservar por WhatsApp</small>
+                    ✅ <strong>¡Fecha perfecta confirmada!</strong><br>
+                    <span style="font-size: 1.1em;">${fechaCompleta}</span><br>
+                    <small>¡Haz clic en "Confirmar Sesión" para reservar ahora! 🚀</small>
                 `;
                 document.getElementById('mensaje').classList.add('mostrar');
                 
-                // Actualizar botón WhatsApp
-                actualizarWhatsapp(fechaFormato);
+                // Actualizar WhatsApp inmediatamente
+                actualizarWhatsapp(fechaCompleta);
             },
-            onReady: function() {
-                document.getElementById('mensaje').innerHTML = 'Selecciona tu día ideal haciendo clic en el calendario ✨';
+            onReady: function(selectedDates, dateStr, instance) {
+                document.getElementById('mensaje').innerHTML = `
+                    📅 <strong>Selecciona tu fecha ideal</strong><br>
+                    <small>Haz clic en el recuadro del calendario para abrirlo</small>
+                `;
                 document.getElementById('mensaje').classList.add('mostrar');
             }
         });
         
         function actualizarWhatsapp(fecha) {
-            const mensaje = `¡Hola! Quiero reservar mi primera sesión GRATIS de Mente Positiva para el ${fecha} 😊\n\n¡Comienzo hoy mi transformación positiva! ✨`;
-            document.getElementById('btn-whatsapp').href = `https://wa.me/541122523570?text=${encodeURIComponent(mensaje)}`;
+            const mensajeCompleto = `¡Hola! ✨ Quiero reservar mi PRIMERA SESIÓN GRATIS de Mente Positiva para:\n\n📅 ${fecha}\n\n¡Estoy listo para comenzar a pensar de forma práctica y positiva! 🚀\n\n¿Cuáles son los siguientes pasos? 😊`;
+            document.getElementById('btn-whatsapp').href = `https://wa.me/541122523570?text=${encodeURIComponent(mensajeCompleto)}`;
         }
         
-        // Inicializar botón
+        // Inicializar
         actualizarWhatsapp('');
     </script>
 </body>
